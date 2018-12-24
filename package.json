@@ -3,13 +3,18 @@
   "version": "0.1.0",
   "private": true,
   "dependencies": {
+    "@types/enzyme": "^3.1.15",
+    "@types/enzyme-adapter-react-16": "^1.0.3",
     "@types/jest": "23.3.10",
     "@types/node": "10.12.18",
     "@types/react": "16.7.18",
     "@types/react-dom": "16.0.11",
+    "enzyme": "^3.8.0",
+    "enzyme-adapter-react-16": "^1.7.1",
     "react": "^16.7.0",
     "react-dom": "^16.7.0",
     "react-scripts": "2.1.2",
+    "react-testing-library": "^5.4.2",
     "typescript": "3.2.2"
   },
   "scripts": {
@@ -26,5 +31,12 @@
     "not dead",
     "not ie <= 11",
     "not op_mini all"
-  ]
+  ],
+  "devDependencies": {
+    "@types/faker": "^4.1.4",
+    "@types/lodash.random": "^3.2.4",
+    "faker": "^4.1.0",
+    "jest-dom": "^3.0.0",
+    "lodash.random": "^3.2.0"
+  }
 }

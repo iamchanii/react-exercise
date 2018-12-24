@@ -1,12 +1,22 @@
 import React from 'react';
 import { fireEvent, render } from 'react-testing-library';
 import { TodoDummy } from '../../testing/_dummies';
-import TodoItem from '../TodoItem';
 import { blankFn } from '../../testing/_utils';
+import TodoItem from '../TodoItem';
 
 describe('<TodoItem/>', () => {
     it('for DEV: props 를 전달하지 않으면 오류가 발생한다.', () => {
-        expect(() => <TodoItem/>).toThrowError();
+        expect(() => {
+            // 이 케이스는 props 에 optional 을 해제하지 않으면 오류가 발생하도록 의도하는 케이스입니다.
+            // 성공적으로 오류가 발생했을 경우 console.error 를 통해 오류 메세지를 표시하는데, 이를 방지하기 위함입니다.
+            const consoleErrorSpy = jest.spyOn(console, 'error').mockImplementation(() => void 0);
+
+            // @ts-ignore
+            render(<TodoItem/>);
+
+            // 이후 이 케이스가 끝나면 다른 케이스에서는 오류 발생 시 정상적으로 받기 위해 spy 를 해제합니다.
+            consoleErrorSpy.mockRestore();
+        }).toThrowError();
     });
 
     it('전달된 item 을 정상적으로 표시할 수 있다.', () => {

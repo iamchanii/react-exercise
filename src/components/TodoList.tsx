@@ -9,15 +9,16 @@ interface ITodoListProps {
 }
 
 class TodoList extends Component<ITodoListProps> {
-    // TODO: props 로 전달받은 items 를 <TodoItem/> 컴포넌트로 렌더링해야 한다.
-    //       (Array.prototype.map 을 이용하여 만들어보세요.)
-    // TODO: <App/> 에서 받은 onDelete, onComplete 함수를 각각 item 컴포넌트에 전달해야 한다.
     render(): React.ReactNode {
+        const { items, onDelete, onComplete } = this.props;
+
+        const itemComps = items.map(item => (
+            <TodoItem key={ item.id } item={ item } onComplete={ onComplete } onDelete={ onDelete }/>
+        ));
+
         return (
             <ul>
-                <TodoItem/>
-                <TodoItem/>
-                <TodoItem/>
+                { itemComps }
             </ul>
         );
     }

@@ -7,6 +7,8 @@ export interface IAppState {
     items: Todo[];
 }
 
+let id = 0;
+
 class App extends Component<any, IAppState> {
     state: IAppState = {
         items: [],
@@ -15,28 +17,48 @@ class App extends Component<any, IAppState> {
     constructor(props: any) {
         super(props);
 
-        // TODO: 로컬 스토리지에 items 가 있는지 확인 후 state 에 입력합니다.
-        //       여기서는 this.state = { } 식으로 구현해야 됩니다. 생성자 단계에서는 아직 컴포넌트가 마운트 되지 않았기 떄문입니다.
+        const data = localStorage.getItem('items');
+        if (data) {
+            const items: Todo[] = JSON.parse(data);
+            this.state = { items };
+        }
     }
 
     handleOnAdd = (title: string): void => {
-        // TODO: 입력받은 title 을 state.items 배열에 추가해야 한다.
-        //       새로 추가된 item 은 completed: false 가 되어야 한다.
-        //       id 는 <TodoList/> 에서 key 값으로 사용되어야 하기 때문에 할 때마다 값이 증가해야 한다.
-        // NOTE: 절대로 state 를 직접 변형하지 마세요. setState 를 활용하세요.
+        const { items } = this.state;
+        items.push({
+            id: id++,
+            title,
+            completed: false,
+        });
 
-        // TODO: 로컬 스토리지에 items 를 저장해야 한다.
+        this.setState({
+            items,
+        }, () => {
+            localStorage.setItem('items', JSON.stringify(this.state.items));
+        });
     };
 
     handleOnComplete = (id: number): void => {
-        // TODO: state.items 에서 id 가 입력받은 id 와 일치하는 항목의 completed 를 토글한다.
-        //       (Array.prototype.map 이나 reduce 를 사용하세요)
-        //       (true 상태에서 다시 누르면 false 로 전환되어야 합니다.)
+        const { items } = this.state;
+
+        this.setState({
+            items: items.map(item => {
+                if (item.id === id) {
+                    item.completed = !item.completed;
+                }
+
+                return item;
+            }),
+        });
     };
 
     handleOnDelete = (id: number): void => {
-        // TODO: state.items 에서 입력받은 id 와 일치하는 항목은 제거한다.
-        //       (Array.prototype.filter 나 splice 를 사용하세요)
+        const { items } = this.state;
+
+        this.setState({
+            items: items.filter(item => item.id !== id),
+        });
     };
 
     render(): React.ReactNode {

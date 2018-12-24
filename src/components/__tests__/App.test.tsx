@@ -6,7 +6,7 @@ import TodoList from '../TodoList';
 import { createDummyList, TodoDummy } from './_dummies';
 
 describe('<App/>', () => {
-    it('TodoForm 을 통해 title 을 추가할 수 있다.', () => {
+    it('TodoForm 을 통해 title 을 추가할 수 있다. 이후 로컬 스토리지에 현재 리스트를 저장한다.', () => {
         const wrapper = shallow<any, IAppState>(<App/>);
 
         wrapper.find(TodoForm).props().onAdd('One And Only');
@@ -15,6 +15,18 @@ describe('<App/>', () => {
         expect(items.length).toEqual(1);
         expect(items[0].title).toEqual('One And Only');
         expect(items[0].completed).toBeFalsy();
+
+        const serializedItems = JSON.stringify(wrapper.state().items);
+        expect(localStorage.setItem).toHaveBeenCalledTimes(1);
+        expect(localStorage.setItem).toHaveBeenCalledWith('items', serializedItems);
+    });
+
+    it('로컬 스토리지에 저장된 내용이 있으면 리스트에 불러온다.', () => {
+        const items = createDummyList(new TodoDummy(), 3);
+        localStorage.setItem('items', JSON.stringify(items));
+
+        const wrapper = shallow<any, IAppState>(<App/>);
+        expect(JSON.stringify(wrapper.state().items)).toEqual(JSON.stringify(items));
     });
 
     it('TodoItem 에서 Complete 버튼을 누르면 해당 항목은 완료 처리가 된다.', () => {

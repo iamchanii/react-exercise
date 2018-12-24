@@ -1,6 +1,6 @@
 import faker from 'faker/locale/en';
 import lodashRandom from 'lodash.random';
-import { Todo } from '../../_models';
+import { Todo } from '../_models';
 
 interface Dummy<T> {
     create(): T;

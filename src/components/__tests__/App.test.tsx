@@ -3,7 +3,7 @@ import React from 'react';
 import App, { IAppState } from '../../App';
 import TodoForm from '../TodoForm';
 import TodoList from '../TodoList';
-import { createDummyList, TodoDummy } from './_dummies';
+import { createDummyList, TodoDummy } from '../../testing/_dummies';
 
 describe('<App/>', () => {
     it('TodoForm 을 통해 title 을 추가할 수 있다. 이후 로컬 스토리지에 현재 리스트를 저장한다.', () => {

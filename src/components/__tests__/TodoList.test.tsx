@@ -1,8 +1,8 @@
 import React from 'react';
 import { fireEvent, render } from 'react-testing-library';
 import TodoList from '../TodoList';
-import { createDummyList, NumberDummy, TodoDummy } from './_dummies';
-import { blankFn } from './_utils';
+import { createDummyList, NumberDummy, TodoDummy } from '../../testing/_dummies';
+import { blankFn } from '../../testing/_utils';
 
 describe('<TodoList/>', () => {
     it('props 로 전달받은 items 를 정상적으로 렌더링 한다.', () => {

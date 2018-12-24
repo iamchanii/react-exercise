@@ -1,8 +1,8 @@
 import React from 'react';
 import { fireEvent, render } from 'react-testing-library';
-import { TodoDummy } from './_dummies';
+import { TodoDummy } from '../../testing/_dummies';
 import TodoItem from '../TodoItem';
-import { blankFn } from './_utils';
+import { blankFn } from '../../testing/_utils';
 
 describe('<TodoItem/>', () => {
     it('for DEV: props 를 전달하지 않으면 오류가 발생한다.', () => {
